@@ -2,10 +2,11 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: rascal-shell
 Bundle-SymbolicName: rascal-shell
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.6.0.qualifier
 Bundle-ClassPath: rascal-shell.jar,
  lib/jline-0.9.94.jar
 Export-Package: jline,
  org.rascalmpl.shell
-Require-Bundle: rascal;bundle-version="0.5.4",
- org.eclipse.imp.pdb.values;bundle-version="0.3.2"
+Require-Bundle: rascal;bundle-version="0.6.0",
+ org.eclipse.imp.pdb.values;bundle-version="0.4.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
