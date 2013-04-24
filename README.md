@@ -22,7 +22,7 @@ The most recent release of Rascal Shell is to be found at: http://www.rascal-mpl
 - select the rascal-shell project and choose "Export ..." from the context menu
 - select Java->Runnable jar, this starts a wizard
 - select your newly made run configuration from the top dropdown box
-- type an export destination, like ``/Users/jurgenv/Desktop/rascal-0.4.20.jar``
+- type an export destination, like "/Users/jurgenv/Desktop/rascal-0.4.20.jar"
 - select "Package required libraries into generated jar"
 - press "Finish"
 - an error dialog pops up; read the messages and ignore all "class file compiled with compiler warnings", but review the other messages
