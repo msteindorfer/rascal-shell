@@ -58,6 +58,7 @@ import org.rascalmpl.parser.gtd.exception.ParseError;
 import org.rascalmpl.uri.ClassResourceInputOutput;
 import org.rascalmpl.uri.URIResolverRegistry;
 import org.rascalmpl.uri.URIUtil;
+import org.rascalmpl.values.IRascalValueFactory;
 import org.rascalmpl.values.ValueFactoryFactory;
 import org.rascalmpl.values.uptr.Factory;
 import org.rascalmpl.values.uptr.TreeAdapter;
@@ -317,7 +318,7 @@ public class RascalShell {
 		ModuleEnvironment root = heap.addModule(new ModuleEnvironment(ModuleEnvironment.SHELL_MODULE, heap));
 		PrintWriter stderr = new PrintWriter(System.err);
 		PrintWriter stdout = new PrintWriter(System.out);
-		IValueFactory vf = ValueFactoryFactory.getValueFactory();
+		IRascalValueFactory vf = ValueFactoryFactory.getValueFactory();
 		Evaluator evaluator = new Evaluator(vf, stderr, stdout, root, heap);
 		return evaluator;
 	}
