@@ -4,7 +4,7 @@
 	
 	<groupId>org.rascalmpl</groupId>
 	<artifactId>rascal-shell</artifactId>
-	<version>0.6.1-SNAPSHOT</version>
+	<version>0.6.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -84,7 +84,7 @@
 		<dependency>
 			<groupId>org.rascalmpl</groupId>
 			<artifactId>rascal</artifactId>
-			<version>0.6.1.qualifier</version>
+			<version>0.6.2.qualifier</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.imp</groupId>
