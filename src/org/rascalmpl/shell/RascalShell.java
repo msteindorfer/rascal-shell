@@ -103,12 +103,24 @@ public class RascalShell {
 		running = true;
 	}
 	
-	private void importPrelude(){
-//		synchronized(evaluator){
-//			evaluator.doImport(null, "Prelude");
-//		}
+	private void importPrelude(){	
+		doImportPrelude();
+	}
+	
+
+	private void doImportPrelude(){
+		synchronized(evaluator){
+			evaluator.doImport(null, "Prelude");
 		
-		doExpLang();
+			try {
+				final URI uri = new URI("shell-test:///");				
+				evaluator.eval(null, ":quit", uri);
+			} catch (URISyntaxException e) {
+				throw new RuntimeException();
+			} catch (QuitException e) {
+				System.exit(0);
+			}
+		}
 	}
 	
 	private void doM3FromDirectory(){		
