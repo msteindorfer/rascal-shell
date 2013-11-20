@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import jline.ConsoleReader;
@@ -103,9 +104,68 @@ public class RascalShell {
 	}
 	
 	private void importPrelude(){
-		//synchronized(evaluator){
-		//	evaluator.doImport(null, "Prelude");
-		//}
+//		synchronized(evaluator){
+//			evaluator.doImport(null, "Prelude");
+//		}
+		
+		doExpLang();
+	}
+	
+	private void doM3FromDirectory(){		
+		synchronized(evaluator){
+			evaluator.doImport(null, "lang::java::m3::Core");
+	
+			final String cmd1 = "M3 m3pdb = createM3FromDirectory(|file:///Users/Michael/Development/rascal-devel/rascal/|);";
+//			final String cmd1 = "M3 m3pdb = createM3FromFile(|file:///Users/Michael/Development/rascal-devel/pdb.values/src/org/eclipse/imp/pdb/facts/impl/fast/List.java|);";
+//			final String cmd2 = "getMethodAST(|java+method:///org/eclipse/imp/pdb/facts/impl/fast/List/reverse()|, model = m3pdb);";
+			try {
+				final URI uri = new URI("shell-test:///");				
+				evaluator.eval(null, cmd1, uri);
+//				evaluator.eval(null, cmd2, uri);
+				evaluator.eval(null, ":quit", uri);
+			} catch (URISyntaxException e) {
+				throw new RuntimeException();
+			} catch (QuitException e) {
+				System.exit(0);
+			}
+		}
+	}	
+	
+	private void doExpLang(){		
+		synchronized(evaluator){
+			evaluator.doImport(null, "demo::lang::Exp::Concrete::WithLayout::Syntax");
+			evaluator.doImport(null, "demo::lang::Exp::Concrete::WithLayout::Eval");
+			
+			final String cmd = "eval(\"2 +  3\")";
+			try {
+				final URI uri = new URI("shell-test:///");				
+				evaluator.eval(null, cmd, uri);
+				evaluator.eval(null, ":quit", uri);
+			} catch (URISyntaxException e) {
+				throw new RuntimeException();
+			} catch (QuitException e) {
+				System.exit(0);
+			}
+		}
+	}
+
+	public void doTypeCheckParserGenerator() {
+		synchronized(evaluator){
+			evaluator.doImport(null, "lang::rascal::types::CheckTypes");
+			evaluator.doImport(null, "util::Reflective");
+			evaluator.doImport(null, "lang::rascal::checker::ParserHelper");
+			
+			final String cmd = "check(treeToModule(parseModule(|std:///lang/rascal/grammar/ParserGenerator.rsc|)))";
+			try {
+				final URI uri = new URI("shell-test:///");				
+				evaluator.eval(null, cmd, uri);
+				evaluator.eval(null, ":quit", uri);
+			} catch (URISyntaxException e) {
+				throw new RuntimeException();
+			} catch (QuitException e) {
+				System.exit(0);
+			}
+		}
 	}
 	
 	public void run() throws IOException {
