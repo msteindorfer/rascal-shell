@@ -291,6 +291,9 @@ public class RascalShell {
 				System.err.println("unexpected error: " + e.getMessage());
 				System.exit(1);
 			}
+		} else if (args[0].equals("-loadAndExit")) {
+			new RascalShell().stop();
+			System.exit(0);			
 		} else if (args[0].equals("-latex")) {
 			toLatex(args[1]);
 		} else {
