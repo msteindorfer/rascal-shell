@@ -72,8 +72,12 @@ public class RascalShell {
 	private final Evaluator evaluator;
 	private volatile boolean running;
 	
-	// TODO: cleanup these constructors.
 	public RascalShell() throws IOException {
+		this(true);
+	}
+	
+	// TODO: cleanup these constructors.
+	public RascalShell(boolean running) throws IOException {
 		console = new ConsoleReader();
 		GlobalEnvironment heap = new GlobalEnvironment();
 		ModuleEnvironment root = heap.addModule(new ModuleEnvironment(ModuleEnvironment.SHELL_MODULE, heap));
@@ -82,7 +86,7 @@ public class RascalShell {
 		evaluator = new Evaluator(ValueFactoryFactory.getValueFactory(), stderr, stdout, root, heap);
 		evaluator.addRascalSearchPathContributor(StandardLibraryContributor.getInstance());
 		importPrelude();
-		running = true;
+		this.running = running; 
 	}
 	
 	public RascalShell(InputStream stdin, PrintWriter stderr, PrintWriter stdout) throws IOException {
@@ -91,7 +95,7 @@ public class RascalShell {
 		ModuleEnvironment root = heap.addModule(new ModuleEnvironment(ModuleEnvironment.SHELL_MODULE, heap));
 		evaluator = new Evaluator(ValueFactoryFactory.getValueFactory(), stderr, stdout, root, heap);
 		importPrelude();
-		running = true;
+		this.running = true;
 	}
 	
 	public RascalShell(InputStream stdin, PrintWriter stderr, PrintWriter stdout, List<ClassLoader> classLoaders, RascalURIResolver uriResolver) throws IOException {
@@ -100,20 +104,33 @@ public class RascalShell {
 		ModuleEnvironment root = heap.addModule(new ModuleEnvironment(ModuleEnvironment.SHELL_MODULE, heap));
 		evaluator = new Evaluator(ValueFactoryFactory.getValueFactory(), stderr, stdout, root, heap, classLoaders, uriResolver);
 		importPrelude();
-		running = true;
+		this.running = true;
 	}
 	
 	private void importPrelude(){	
-		doImportPrelude();
+//		doImportPrelude();
+//		doExpLang();
+//		doM3FromDirectory();
+//		doTypeCheckParserGenerator();
 	}
 	
-
+	private void runBechmark(){	
+//		doImportPrelude();
+//		doExpLang();
+//		doM3FromDirectory();
+//		doTypeCheckParserGenerator();
+		final int MOD17_MAX = 15; // do as well with 5, 10, 15, 20
+//		doMod17(Mod17Func.run_evalsym17,  MOD17_MAX);
+		doMod17(Mod17Func.run_evalexp17,  MOD17_MAX);
+//		doMod17(Mod17Func.run_evaltree17, MOD17_MAX);		
+	}
+	
 	private void doImportPrelude(){
 		synchronized(evaluator){
 			evaluator.doImport(null, "Prelude");
 		
 			try {
-				final URI uri = new URI("shell-test:///");				
+				final URI uri = new URI("shell-test:///");
 				evaluator.eval(null, ":quit", uri);
 			} catch (URISyntaxException e) {
 				throw new RuntimeException();
@@ -125,9 +142,13 @@ public class RascalShell {
 	
 	private void doM3FromDirectory(){		
 		synchronized(evaluator){
-			evaluator.doImport(null, "lang::java::m3::Core");
-	
-			final String cmd1 = "M3 m3pdb = createM3FromDirectory(|file:///Users/Michael/Development/rascal-devel/rascal/|);";
+			// NOTE: importing from project does not work, because code is located in rascal-eclipse
+//			evaluator.doImport(null, "lang::java::jdt::m3::Core");
+//			final String cmd1 = "M3 m3pdb = createM3FromEclipseProject(|project://rascal/|);";
+
+			evaluator.doImport(null, "lang::java::m3::Core");	
+			
+			final String cmd1 = "M3 m3pdb = createM3FromDirectory(|file:///Users/Michael/Development/rascal-devel/pdb.values/|);";
 //			final String cmd1 = "M3 m3pdb = createM3FromFile(|file:///Users/Michael/Development/rascal-devel/pdb.values/src/org/eclipse/imp/pdb/facts/impl/fast/List.java|);";
 //			final String cmd2 = "getMethodAST(|java+method:///org/eclipse/imp/pdb/facts/impl/fast/List/reverse()|, model = m3pdb);";
 			try {
@@ -141,7 +162,7 @@ public class RascalShell {
 				System.exit(0);
 			}
 		}
-	}	
+	}
 	
 	private void doExpLang(){		
 		synchronized(evaluator){
@@ -161,7 +182,7 @@ public class RascalShell {
 		}
 	}
 
-	public void doTypeCheckParserGenerator() {
+	private void doTypeCheckParserGenerator() {
 		synchronized(evaluator){
 			evaluator.doImport(null, "lang::rascal::types::CheckTypes");
 			evaluator.doImport(null, "util::Reflective");
@@ -169,8 +190,13 @@ public class RascalShell {
 			
 			final String cmd = "check(treeToModule(parseModule(|std:///lang/rascal/grammar/ParserGenerator.rsc|)))";
 			try {
+				Result<IValue> res;
+				
 				final URI uri = new URI("shell-test:///");				
-				evaluator.eval(null, cmd, uri);
+				
+				res = evaluator.eval(null, cmd, uri);
+				// ???
+				
 				evaluator.eval(null, ":quit", uri);
 			} catch (URISyntaxException e) {
 				throw new RuntimeException();
@@ -180,53 +206,81 @@ public class RascalShell {
 		}
 	}
 	
-	public void run() throws IOException {
-		StringBuilder input = new StringBuilder();
-		String line;
-		
-		next:while (running) {
+	private enum Mod17Func {
+		run_evalsym17,
+		run_evalexp17,
+		run_evaltree17
+	};
+	
+	private void doMod17(Mod17Func functionName, int max) {		
+		synchronized(evaluator){
+			evaluator.doImport(null, "demo::Mod17");
+			
+			final String cmd = String.format("%s(%d)", functionName.toString(), max);
+//			final String cmd = String.format("main(%d)", max);
 			try {
-				input.delete(0, input.length());
-				String prompt = ReadEvalPrintDialogMessages.PROMPT;
-
-				do {
-					line = console.readLine(prompt);
-					
-					if (line == null) {
-						break next; // EOF
-					}
-					
-					if (line.trim().length() == 0) {
-						console.printString("cancelled\n");
-						continue next;
-					}
-					
-					input.append((input.length() > 0 ? "\n" : "") + line);
-					prompt = ReadEvalPrintDialogMessages.CONTINUE_PROMPT;
-				} while (!completeStatement(input.toString()));
-
-				String output = handleInput(input.toString());
-				console.printString(output);
-				console.printNewline();
+				final URI uri = new URI("shell-test:///");				
+				evaluator.eval(null, cmd, uri);
+				evaluator.eval(null, ":quit", uri);
+			} catch (URISyntaxException e) {
+				throw new RuntimeException();
+			} catch (QuitException e) {
+				System.exit(0);
 			}
-			catch (ParseError pe) {
-				console.printString(parseErrorMessage(input.toString(), "prompt", pe));
-				console.printNewline();
-			}
-			catch (StaticError e) {
-				console.printString(staticErrorMessage(e));
-				console.printNewline();
-			}
-			catch (Throw e) {
-				console.printString(throwMessage(e));
-				console.printNewline();
-			}
-			catch (QuitException q) {
-				break next;
-			}
-			catch (Throwable e) {
-				console.printString(throwableMessage(e, evaluator.getStackTrace()));
-				console.printNewline();
+		}		
+	}
+	
+	public void run() throws IOException {
+		if (!running) {
+			runBechmark();
+		} else {		
+			StringBuilder input = new StringBuilder();
+			String line;
+			
+			next:while (running) {
+				try {
+					input.delete(0, input.length());
+					String prompt = ReadEvalPrintDialogMessages.PROMPT;
+	
+					do {
+						line = console.readLine(prompt);
+						
+						if (line == null) {
+							break next; // EOF
+						}
+						
+						if (line.trim().length() == 0) {
+							console.printString("cancelled\n");
+							continue next;
+						}
+						
+						input.append((input.length() > 0 ? "\n" : "") + line);
+						prompt = ReadEvalPrintDialogMessages.CONTINUE_PROMPT;
+					} while (!completeStatement(input.toString()));
+	
+					String output = handleInput(input.toString());
+					console.printString(output);
+					console.printNewline();
+				}
+				catch (ParseError pe) {
+					console.printString(parseErrorMessage(input.toString(), "prompt", pe));
+					console.printNewline();
+				}
+				catch (StaticError e) {
+					console.printString(staticErrorMessage(e));
+					console.printNewline();
+				}
+				catch (Throw e) {
+					console.printString(throwMessage(e));
+					console.printNewline();
+				}
+				catch (QuitException q) {
+					break next;
+				}
+				catch (Throwable e) {
+					console.printString(throwableMessage(e, evaluator.getStackTrace()));
+					console.printNewline();
+				}
 			}
 		}
 	}
@@ -293,6 +347,9 @@ public class RascalShell {
 			}
 		} else if (args[0].equals("-loadAndExit")) {
 			new RascalShell().stop();
+			System.exit(0);
+		} else if (args[0].equals("-benchmark")) {
+			new RascalShell(false).run();
 			System.exit(0);			
 		} else if (args[0].equals("-latex")) {
 			toLatex(args[1]);
