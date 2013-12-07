@@ -107,21 +107,33 @@ public class RascalShell {
 		this.running = true;
 	}
 	
-	private void importPrelude(){	
-//		doImportPrelude();
-//		doExpLang();
-//		doM3FromDirectory();
-//		doTypeCheckParserGenerator();
+	private void importPrelude() {
+		// doImportPrelude();
 	}
 	
-	private void runBechmark(){	
-//		doImportPrelude();
-//		doExpLang();
-//		doM3FromDirectory();
-//		doTypeCheckParserGenerator();
-		final int MOD17_MAX = 15; // do as well with 5, 10, 15, 20
+	private void runBechmark() {
+		final String benchmarkName = System.getProperties().getProperty("benchmarkName"); 
+		
+		switch (benchmarkName) {
+		case "doImportPrelude":
+			doImportPrelude();
+			break;
+		case "doExpLang":
+			doExpLang();
+			break;
+		case "doM3FromDirectory":
+			doM3FromDirectory();
+			break;
+		case "doTypeCheckParserGenerator":
+			doTypeCheckParserGenerator();
+			break;
+		default:
+			throw new RuntimeException();
+		}		
+		
+//		final int MOD17_MAX = 15; // do as well with 5, 10, 15, 20
 //		doMod17(Mod17Func.run_evalsym17,  MOD17_MAX);
-		doMod17(Mod17Func.run_evalexp17,  MOD17_MAX);
+//		doMod17(Mod17Func.run_evalexp17,  MOD17_MAX);
 //		doMod17(Mod17Func.run_evaltree17, MOD17_MAX);		
 	}
 	
@@ -349,8 +361,13 @@ public class RascalShell {
 			new RascalShell().stop();
 			System.exit(0);
 		} else if (args[0].equals("-benchmark")) {
-			new RascalShell(false).run();
-			System.exit(0);			
+			if (System.getProperties().containsKey("benchmarkName")) {
+				new RascalShell(false).run();
+				System.exit(0);							
+			} else {
+				System.err.println("Provide JVM argument -DbenchmarkName=\"...\".");
+				System.exit(1);				
+			}
 		} else if (args[0].equals("-latex")) {
 			toLatex(args[1]);
 		} else {
