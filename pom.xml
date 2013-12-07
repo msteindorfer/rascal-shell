@@ -86,11 +86,6 @@
 			<artifactId>rascal</artifactId>
 			<version>0.6.2.qualifier</version>
 		</dependency>
-		<dependency>
-			<groupId>org.eclipse.imp</groupId>
-			<artifactId>org.eclipse.imp.pdb.values</artifactId>
-			<version>0.4.1.qualifier</version>
-		</dependency>
 	</dependencies>
 
 </project>
