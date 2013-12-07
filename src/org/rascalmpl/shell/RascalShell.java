@@ -127,14 +127,46 @@ public class RascalShell {
 		case "doTypeCheckParserGenerator":
 			doTypeCheckParserGenerator();
 			break;
+		case "MOD17_EVALEXP_05":
+			doMod17(Mod17Func.run_evalexp17, 05);
+			break;
+		case "MOD17_EVALEXP_10":
+			doMod17(Mod17Func.run_evalexp17, 10);
+			break;			
+		case "MOD17_EVALEXP_15":
+			doMod17(Mod17Func.run_evalexp17, 15);
+			break;			
+		case "MOD17_EVALEXP_20":
+			doMod17(Mod17Func.run_evalexp17, 20);
+			break;			
+		case "MOD17_EVALSYM_05":
+			doMod17(Mod17Func.run_evalsym17, 05);
+			break;
+		case "MOD17_EVALSYM_10":
+			doMod17(Mod17Func.run_evalsym17, 10);
+			break;			
+		case "MOD17_EVALSYM_15":
+			doMod17(Mod17Func.run_evalsym17, 15);
+			break;			
+		case "MOD17_EVALSYM_20":
+			doMod17(Mod17Func.run_evalsym17, 20);
+			break;			
+		case "MOD17_EVALTREE_05":
+			doMod17(Mod17Func.run_evaltree17, 05);
+			break;
+		case "MOD17_EVALTREE_10":
+			doMod17(Mod17Func.run_evaltree17, 10);
+			break;			
+		case "MOD17_EVALTREE_15":
+			doMod17(Mod17Func.run_evaltree17, 15);
+			break;			
+		case "MOD17_EVALTREE_20":
+			doMod17(Mod17Func.run_evaltree17, 20);
+			break;			
+					
 		default:
 			throw new RuntimeException();
 		}		
-		
-//		final int MOD17_MAX = 15; // do as well with 5, 10, 15, 20
-//		doMod17(Mod17Func.run_evalsym17,  MOD17_MAX);
-//		doMod17(Mod17Func.run_evalexp17,  MOD17_MAX);
-//		doMod17(Mod17Func.run_evaltree17, MOD17_MAX);		
 	}
 	
 	private void doImportPrelude(){
