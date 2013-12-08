@@ -138,7 +138,13 @@ public class RascalShell {
 			break;			
 		case "MOD17_EVALEXP_20":
 			doMod17(Mod17Func.run_evalexp17, 20);
+			break;
+		case "MOD17_EVALEXP_25":
+			doMod17(Mod17Func.run_evalexp17, 25);
 			break;			
+		case "MOD17_EVALEXP_30":
+			doMod17(Mod17Func.run_evalexp17, 30);
+			break;						
 		case "MOD17_EVALSYM_05":
 			doMod17(Mod17Func.run_evalsym17, 05);
 			break;
@@ -150,7 +156,13 @@ public class RascalShell {
 			break;			
 		case "MOD17_EVALSYM_20":
 			doMod17(Mod17Func.run_evalsym17, 20);
+			break;
+		case "MOD17_EVALSYM_25":
+			doMod17(Mod17Func.run_evalsym17, 25);
 			break;			
+		case "MOD17_EVALSYM_30":
+			doMod17(Mod17Func.run_evalsym17, 30);
+			break;						
 		case "MOD17_EVALTREE_05":
 			doMod17(Mod17Func.run_evaltree17, 05);
 			break;
@@ -163,7 +175,13 @@ public class RascalShell {
 		case "MOD17_EVALTREE_20":
 			doMod17(Mod17Func.run_evaltree17, 20);
 			break;			
-					
+		case "MOD17_EVALTREE_25":
+			doMod17(Mod17Func.run_evaltree17, 25);
+			break;			
+		case "MOD17_EVALTREE_30":
+			doMod17(Mod17Func.run_evaltree17, 30);
+			break;
+			
 		default:
 			throw new RuntimeException();
 		}		
