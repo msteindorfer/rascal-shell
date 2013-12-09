@@ -1,2 +1,9 @@
-./makeResults.sh 1 | sort > _results1.tex
-./makeResults.sh 2 | sort > _results2.tex
+export csvFile=$1
+export resultFile=$2
+
+rm "$resultFile"
+echo "% !TEX encoding = UTF-8 Unicode" >> "$resultFile"
+echo "% !TEX root = ../paper.tex" >> "$resultFile"
+echo "" >> "$resultFile"
+
+find . -name "_results1.csv" -exec tail -1 {} \; | sort >> "$resultFile"
