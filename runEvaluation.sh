@@ -31,11 +31,12 @@ function executeAnyBenchmark() {
 	local TEST_RUNNER="org.eclipse.imp.pdb.values.benchmarks.SingleJUnitTestRunner"
 	#local TEST_RUNNER="org.junit.runner.JUnitCore"
 
+
+	##
+	# Execute Tests/Benchmarks
+	###
 	if (("$MODE" >= "7"))
 	then
-		##
-		# Execute Tests/Benchmarks
-		###
 		if test "$1" == "JUnit"; then 
 			java $COMMON_VM_ARGS $vm_memory_args -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name
 		else
@@ -54,11 +55,11 @@ function executeAnyBenchmark() {
 	fi
 
 
+	##
+	# Log Postprocessing with Tracr
+	###
 	if (("$MODE" >= "4"))
 	then
-		##
-		# Log Postprocessing with Tracr
-		###
 		(cd $TRACER_DIR && sbt "run `echo $DIR_A`")
 		mv $TRACER_DIR/*.dat $DIR_A
 		#	
@@ -67,27 +68,23 @@ function executeAnyBenchmark() {
 	fi
 
 
-	
+	##
+	# Evaluation and Graph Plotting with R
+	###	
 	if (("$MODE" >= "1"))
 	then
-		##
-		# Evaluation and Graph Plotting with R
-		###
 		mkdir -p $DIR_AB
 		cp $DIR_A/*.dat $DIR_AB
 		cp $DIR_B/*.dat $DIR_AB
+		#
 		cp $DIR_B/_hashAndCacheStatistic.bin.txt $DIR_AB
+		#
+		echo $benchmark_short_name > $DIR_AB/_benchmarkShortName.bin.txt
+		echo $benchmark_name > $DIR_AB/_benchmarkName.bin.txt
+		echo $heapSize > $DIR_AB/_heapSize.bin.txt
 		#
 		(cd $DIR_AB && Rscript $TRACER_DIR/doPlot.r)
 	fi
-
-
-	##
-	# Misc.
-	###
-	echo $benchmark_short_name > _benchmarkShortName.bin.txt
-	echo $benchmark_name > _benchmarkName.bin.txt
-	echo $heapSize > _heapSize.bin.txt
 }
 
 function executeRascalShellBenchmark() {
