@@ -65,8 +65,15 @@ function executeAnyBenchmark() {
 	mkdir -p $DIR_AB
 	cp $DIR_A/*.dat $DIR_AB
 	cp $DIR_B/*.dat $DIR_AB
+	cp $DIR_B/_hashAndCacheStatistic.bin.txt $DIR_AB
 	#
 	(cd $DIR_AB && Rscript $TRACER_DIR/doPlot.r)
+
+
+	##
+	# Misc.
+	###
+	echo $benchmark_name > _benchmarkName.bin.txt
 }
 
 function executeRascalShellBenchmark() {
@@ -86,61 +93,92 @@ function executeJUnitBenchmark() {
 trap "exit" INT
 mkdir -p $RESULT_DIR
 
-executeRascalShellBenchmark "doImportPrelude" "2048m"
-executeRascalShellBenchmark "doImportPrelude" "1024m"
-executeRascalShellBenchmark "doImportPrelude" "0512m"
-executeRascalShellBenchmark "doImportPrelude" "0256m"
+# executeRascalShellBenchmark "doImportPrelude" "2048m"
+# executeRascalShellBenchmark "doImportPrelude" "1024m"
+# executeRascalShellBenchmark "doImportPrelude" "0512m"
+# executeRascalShellBenchmark "doImportPrelude" "0256m"
 
-executeRascalShellBenchmark "doExpLang" "2048m"
-executeRascalShellBenchmark "doExpLang" "1792m"
-executeRascalShellBenchmark "doExpLang" "1536m"
+# executeRascalShellBenchmark "doExpLang" "2048m"
+# executeRascalShellBenchmark "doExpLang" "1792m"
+# executeRascalShellBenchmark "doExpLang" "1536m"
 
-## executeRascalShellBenchmark "doM3FromDirectory" "2048m"
-## executeRascalShellBenchmark "doM3FromDirectory" "1536m"
-## executeRascalShellBenchmark "doM3FromDirectory" "1024m"
+# ## executeRascalShellBenchmark "doM3FromDirectory" "2048m"
+# ## executeRascalShellBenchmark "doM3FromDirectory" "1536m"
+# ## executeRascalShellBenchmark "doM3FromDirectory" "1024m"
 
-executeRascalShellBenchmark "doTypeCheckParserGenerator" "2048m"
-executeRascalShellBenchmark "doTypeCheckParserGenerator" "1792m"
-executeRascalShellBenchmark "doTypeCheckParserGenerator" "1536m"
+# executeRascalShellBenchmark "doTypeCheckParserGenerator" "3072m"
+# executeRascalShellBenchmark "doTypeCheckParserGenerator" "2816m"
+# executeRascalShellBenchmark "doTypeCheckParserGenerator" "2560m"
+# executeRascalShellBenchmark "doTypeCheckParserGenerator" "2048m"
+# # executeRascalShellBenchmark "doTypeCheckParserGenerator" "1792m"
+# # executeRascalShellBenchmark "doTypeCheckParserGenerator" "1536m"
 
-executeRascalShellBenchmark "MOD17_EVALEXP_05"
-executeRascalShellBenchmark "MOD17_EVALSYM_05"
-executeRascalShellBenchmark "MOD17_EVALTREE_05"
+# executeRascalShellBenchmark "MOD17_EVALEXP_05"
+# executeRascalShellBenchmark "MOD17_EVALSYM_05"
+# executeRascalShellBenchmark "MOD17_EVALTREE_05"
+# #
+# executeRascalShellBenchmark "MOD17_EVALEXP_10"
+# executeRascalShellBenchmark "MOD17_EVALSYM_10"
+# executeRascalShellBenchmark "MOD17_EVALTREE_10"
+# #
+# executeRascalShellBenchmark "MOD17_EVALEXP_15"
+# executeRascalShellBenchmark "MOD17_EVALSYM_15"
+# executeRascalShellBenchmark "MOD17_EVALTREE_15"
 #
-executeRascalShellBenchmark "MOD17_EVALEXP_10"
-executeRascalShellBenchmark "MOD17_EVALSYM_10"
-executeRascalShellBenchmark "MOD17_EVALTREE_10"
+# executeRascalShellBenchmark "MOD17_EVALEXP_20"
+# executeRascalShellBenchmark "MOD17_EVALSYM_20"
+# executeRascalShellBenchmark "MOD17_EVALTREE_20"
 #
-executeRascalShellBenchmark "MOD17_EVALEXP_15"
-executeRascalShellBenchmark "MOD17_EVALSYM_15"
-executeRascalShellBenchmark "MOD17_EVALTREE_15"
+# executeRascalShellBenchmark "MOD17_EVALEXP_25" "8192m"
+# executeRascalShellBenchmark "MOD17_EVALSYM_25" "8192m"
+# executeRascalShellBenchmark "MOD17_EVALTREE_25" "8192m"
 #
-executeRascalShellBenchmark "MOD17_EVALEXP_20"
-executeRascalShellBenchmark "MOD17_EVALSYM_20"
-executeRascalShellBenchmark "MOD17_EVALTREE_20"
+# executeRascalShellBenchmark "MOD17_EVALEXP_30" "8192m"
+# executeRascalShellBenchmark "MOD17_EVALSYM_30" "8192m"
+# executeRascalShellBenchmark "MOD17_EVALTREE_30" "8192m"
 
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElements"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElementsAndMixedEqualitiesAnnotations"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElements" # "3072m" "2560m" "2048m" "1536m" "1024m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElements" "3072m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElements" "2560m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElements" "2048m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElements" "1536m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElements" "1024m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElementsAndMixedEqualitiesAnnotations" # "3072m" "2560m" "2048m" "1536m" "1024m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElementsAndMixedEqualitiesAnnotations" "3072m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElementsAndMixedEqualitiesAnnotations" "2560m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElementsAndMixedEqualitiesAnnotations" "2048m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElementsAndMixedEqualitiesAnnotations" "1536m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElementsAndMixedEqualitiesAnnotations" "1024m"
 
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithUniqueElements"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElements" # "3072m" "2560m" "2048m" "1536m" "1024m"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElementsAndMixedEqualitiesAnnotations"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithUniqueElements"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElements" # "3072m" "2560m" "2048m" "1536m" "1024m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElements" "3072m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElements" "2560m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElements" "2048m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElements" "1536m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElements" "1024m"
+executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElementsAndMixedEqualitiesAnnotations" # "3072m" "2560m" "2048m" "1536m" "1024m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElementsAndMixedEqualitiesAnnotations" "3072m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElementsAndMixedEqualitiesAnnotations" "2560m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElementsAndMixedEqualitiesAnnotations" "2048m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElementsAndMixedEqualitiesAnnotations" "1536m"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElementsAndMixedEqualitiesAnnotations" "1024m"
 
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureJHotDraw52"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureJWAM16FullAndreas"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureEclipse202a"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closurejdk14v2"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureJDK140AWT"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureJHotDraw52"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureJWAM16FullAndreas"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureEclipse202a"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closurejdk14v2"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureJDK140AWT"
 
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarJHotDraw52"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarJWAM16FullAndreas"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarEclipse202a"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarjdk14v2"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarJDK140AWT"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarJHotDraw52"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarJWAM16FullAndreas"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarEclipse202a"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarjdk14v2"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarJDK140AWT"
 
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.SingleElementSetBenchmark#testUnionSingleElementIntegerSets_5_000"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.SingleElementSetBenchmark#testUnionSingleElementIntegerSets_10_000"
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.SingleElementSetBenchmark#testUnionSingleElementIntegerSets_15_000"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.SingleElementSetBenchmark#testUnionSingleElementIntegerSets_5_000"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.SingleElementSetBenchmark#testUnionSingleElementIntegerSets_10_000"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.SingleElementSetBenchmark#testUnionSingleElementIntegerSets_15_000"
 
-executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.ModelAggregationBenchmark#timeUnionRelations"
+# executeJUnitBenchmark "org.eclipse.imp.pdb.values.benchmarks.ModelAggregationBenchmark"
