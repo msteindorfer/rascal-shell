@@ -53,21 +53,21 @@ function executeAnyBenchmark() {
 	if (("$MODE" >= "7"))
 	then
 		if test "$1" == "JUnit"; then 
-			command java $COMMON_VM_ARGS $vm_memory_argsA -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>_stdout.log 2>_stderr.log
+			command java $COMMON_VM_ARGS $vm_memory_argsA -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
 		else
-			command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>_stdout.log 2>_stderr.log
+			command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
 		fi;	
 		mkdir -p $DIR_A
-		mv target/*.bin* $DIR_A
+		mv target/{*.bin*,*.log} $DIR_A
 		mv target/_timeBenchmark.txt $DIR_A/_timeBenchmarkA.txt
 		#
 		if [[ $1 == "JUnit" ]]; then 
-			command java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>_stdout.log 2>_stderr.log
+			command java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
 		else
-			command java $COMMON_VM_ARGS $vm_memory_argsB -DbenchmarkName=$benchmark_name -DsharingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>_stdout.log 2>_stderr.log
+			command java $COMMON_VM_ARGS $vm_memory_argsB -DbenchmarkName=$benchmark_name -DsharingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
 		fi;	
 		mkdir -p $DIR_B 
-		mv target/*.bin* $DIR_B
+		mv target/{*.bin*,*.log} $DIR_B
 		mv target/_timeBenchmark.txt $DIR_B/_timeBenchmarkB.txt
 	fi
 
@@ -95,6 +95,12 @@ function executeAnyBenchmark() {
 		mkdir -p $DIR_AB
 		cp $DIR_A/{*.dat,_time*} $DIR_AB
 		cp $DIR_B/{*.dat,_time*} $DIR_AB
+		#
+		mkdir -p $DIR_AB/logA
+		cp $DIR_A/*.log $DIR_AB/logA
+		#
+		mkdir -p $DIR_AB/logB
+		cp $DIR_B/*.log $DIR_AB/logB		
 		#
 		cp $DIR_B/_hashAndCacheStatistic.bin.txt $DIR_AB
 		#
