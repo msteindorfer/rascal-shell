@@ -1,4 +1,3 @@
-package org.rascalmpl.shell;
 /*******************************************************************************
  * Copyright (c) 2009-2011 CWI
  * All rights reserved. This program and the accompanying materials
@@ -13,7 +12,7 @@ package org.rascalmpl.shell;
  *   * Paul Klint - Paul.Klint@cwi.nl - CWI
  *   * Arnold Lankamp - Arnold.Lankamp@cwi.nl
 *******************************************************************************/
-
+package org.rascalmpl.shell;
 
 import static org.rascalmpl.interpreter.utils.ReadEvalPrintDialogMessages.parseErrorMessage;
 import static org.rascalmpl.interpreter.utils.ReadEvalPrintDialogMessages.staticErrorMessage;
@@ -27,6 +26,8 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 import jline.ConsoleReader;
@@ -114,77 +115,93 @@ public class RascalShell {
 	private void runBechmark() {
 		final String benchmarkName = System.getProperties().getProperty("benchmarkName"); 
 		
-		switch (benchmarkName) {
-		case "doImportPrelude":
-			doImportPrelude();
-			break;
-		case "doExpLang":
-			doExpLang();
-			break;
-		case "doM3FromDirectory":
-			doM3FromDirectory();
-			break;
-		case "doTypeCheckParserGenerator":
-			doTypeCheckParserGenerator();
-			break;
-		case "MOD17_EVALEXP_05":
-			doMod17(Mod17Func.run_evalexp17, 05);
-			break;
-		case "MOD17_EVALEXP_10":
-			doMod17(Mod17Func.run_evalexp17, 10);
-			break;			
-		case "MOD17_EVALEXP_15":
-			doMod17(Mod17Func.run_evalexp17, 15);
-			break;			
-		case "MOD17_EVALEXP_20":
-			doMod17(Mod17Func.run_evalexp17, 20);
-			break;
-		case "MOD17_EVALEXP_25":
-			doMod17(Mod17Func.run_evalexp17, 25);
-			break;			
-		case "MOD17_EVALEXP_30":
-			doMod17(Mod17Func.run_evalexp17, 30);
-			break;						
-		case "MOD17_EVALSYM_05":
-			doMod17(Mod17Func.run_evalsym17, 05);
-			break;
-		case "MOD17_EVALSYM_10":
-			doMod17(Mod17Func.run_evalsym17, 10);
-			break;			
-		case "MOD17_EVALSYM_15":
-			doMod17(Mod17Func.run_evalsym17, 15);
-			break;			
-		case "MOD17_EVALSYM_20":
-			doMod17(Mod17Func.run_evalsym17, 20);
-			break;
-		case "MOD17_EVALSYM_25":
-			doMod17(Mod17Func.run_evalsym17, 25);
-			break;			
-		case "MOD17_EVALSYM_30":
-			doMod17(Mod17Func.run_evalsym17, 30);
-			break;						
-		case "MOD17_EVALTREE_05":
-			doMod17(Mod17Func.run_evaltree17, 05);
-			break;
-		case "MOD17_EVALTREE_10":
-			doMod17(Mod17Func.run_evaltree17, 10);
-			break;			
-		case "MOD17_EVALTREE_15":
-			doMod17(Mod17Func.run_evaltree17, 15);
-			break;			
-		case "MOD17_EVALTREE_20":
-			doMod17(Mod17Func.run_evaltree17, 20);
-			break;			
-		case "MOD17_EVALTREE_25":
-			doMod17(Mod17Func.run_evaltree17, 25);
-			break;			
-		case "MOD17_EVALTREE_30":
-			doMod17(Mod17Func.run_evaltree17, 30);
-			break;
-			
-		default:
-			throw new RuntimeException();
-		}		
+		long startTime = System.nanoTime();
+		try {
+			switch (benchmarkName) {
+			case "doImportPrelude":
+				doImportPrelude();
+				break;
+			case "doExpLang":
+				doExpLang();
+				break;
+			case "doM3FromDirectory":
+				doM3FromDirectory();
+				break;
+			case "doTypeCheckParserGenerator":
+				doTypeCheckParserGenerator();
+				break;
+			case "MOD17_EVALEXP_05":
+				doMod17(Mod17Func.run_evalexp17, 05);
+				break;
+			case "MOD17_EVALEXP_10":
+				doMod17(Mod17Func.run_evalexp17, 10);
+				break;			
+			case "MOD17_EVALEXP_15":
+				doMod17(Mod17Func.run_evalexp17, 15);
+				break;			
+			case "MOD17_EVALEXP_20":
+				doMod17(Mod17Func.run_evalexp17, 20);
+				break;
+			case "MOD17_EVALEXP_25":
+				doMod17(Mod17Func.run_evalexp17, 25);
+				break;			
+			case "MOD17_EVALEXP_30":
+				doMod17(Mod17Func.run_evalexp17, 30);
+				break;						
+			case "MOD17_EVALSYM_05":
+				doMod17(Mod17Func.run_evalsym17, 05);
+				break;
+			case "MOD17_EVALSYM_10":
+				doMod17(Mod17Func.run_evalsym17, 10);
+				break;			
+			case "MOD17_EVALSYM_15":
+				doMod17(Mod17Func.run_evalsym17, 15);
+				break;			
+			case "MOD17_EVALSYM_20":
+				doMod17(Mod17Func.run_evalsym17, 20);
+				break;
+			case "MOD17_EVALSYM_25":
+				doMod17(Mod17Func.run_evalsym17, 25);
+				break;			
+			case "MOD17_EVALSYM_30":
+				doMod17(Mod17Func.run_evalsym17, 30);
+				break;						
+			case "MOD17_EVALTREE_05":
+				doMod17(Mod17Func.run_evaltree17, 05);
+				break;
+			case "MOD17_EVALTREE_10":
+				doMod17(Mod17Func.run_evaltree17, 10);
+				break;			
+			case "MOD17_EVALTREE_15":
+				doMod17(Mod17Func.run_evaltree17, 15);
+				break;			
+			case "MOD17_EVALTREE_20":
+				doMod17(Mod17Func.run_evaltree17, 20);
+				break;			
+			case "MOD17_EVALTREE_25":
+				doMod17(Mod17Func.run_evaltree17, 25);
+				break;			
+			case "MOD17_EVALTREE_30":
+				doMod17(Mod17Func.run_evaltree17, 30);
+				break;
+				
+			default:
+				throw new RuntimeException();
+			}	
+		} catch (QuitException e) {
+			long endTime = System.nanoTime();
+			String outputString = String.format("%d", endTime - startTime);
+
+			try {
+				java.nio.file.Files.write(Paths.get("target/_timeBenchmark.txt"),
+								outputString.getBytes("UTF-8"), StandardOpenOption.CREATE,
+								StandardOpenOption.TRUNCATE_EXISTING);
+			} catch (IOException e1) {
+				throw new RuntimeException(e1);
+			}
+
+			System.exit(0);
+		}
 	}
 	
 	private void doImportPrelude(){
@@ -196,8 +213,6 @@ public class RascalShell {
 				evaluator.eval(null, ":quit", uri);
 			} catch (URISyntaxException e) {
 				throw new RuntimeException();
-			} catch (QuitException e) {
-				System.exit(0);
 			}
 		}
 	}
@@ -220,8 +235,6 @@ public class RascalShell {
 				evaluator.eval(null, ":quit", uri);
 			} catch (URISyntaxException e) {
 				throw new RuntimeException();
-			} catch (QuitException e) {
-				System.exit(0);
 			}
 		}
 	}
@@ -238,8 +251,6 @@ public class RascalShell {
 				evaluator.eval(null, ":quit", uri);
 			} catch (URISyntaxException e) {
 				throw new RuntimeException();
-			} catch (QuitException e) {
-				System.exit(0);
 			}
 		}
 	}
@@ -262,8 +273,6 @@ public class RascalShell {
 				evaluator.eval(null, ":quit", uri);
 			} catch (URISyntaxException e) {
 				throw new RuntimeException();
-			} catch (QuitException e) {
-				System.exit(0);
 			}
 		}
 	}
@@ -286,8 +295,6 @@ public class RascalShell {
 				evaluator.eval(null, ":quit", uri);
 			} catch (URISyntaxException e) {
 				throw new RuntimeException();
-			} catch (QuitException e) {
-				System.exit(0);
 			}
 		}		
 	}

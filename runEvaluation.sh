@@ -53,20 +53,22 @@ function executeAnyBenchmark() {
 	if (("$MODE" >= "7"))
 	then
 		if test "$1" == "JUnit"; then 
-			java $COMMON_VM_ARGS $vm_memory_argsA -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name
+			command java $COMMON_VM_ARGS $vm_memory_argsA -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>_stdout.log 2>_stderr.log
 		else
-			java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark
+			command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>_stdout.log 2>_stderr.log
 		fi;	
 		mkdir -p $DIR_A
 		mv target/*.bin* $DIR_A
+		mv target/_timeBenchmark.txt $DIR_A/_timeBenchmarkA.txt
 		#
 		if [[ $1 == "JUnit" ]]; then 
-			java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name
+			command java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>_stdout.log 2>_stderr.log
 		else
-			java $COMMON_VM_ARGS $vm_memory_argsB -DbenchmarkName=$benchmark_name -DsharingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark
+			command java $COMMON_VM_ARGS $vm_memory_argsB -DbenchmarkName=$benchmark_name -DsharingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>_stdout.log 2>_stderr.log
 		fi;	
 		mkdir -p $DIR_B 
 		mv target/*.bin* $DIR_B
+		mv target/_timeBenchmark.txt $DIR_B/_timeBenchmarkB.txt
 	fi
 
 
@@ -77,9 +79,11 @@ function executeAnyBenchmark() {
 	then
 		(cd $TRACER_DIR && sbt "run `echo $DIR_A`")
 		mv $TRACER_DIR/*.dat $DIR_A
+		mv $TRACER_DIR/target/_timeTracr.txt $DIR_A/_timeTracrA.txt
 		#	
 		(cd $TRACER_DIR && sbt "run `echo $DIR_B` sharingEnabled")
 		mv $TRACER_DIR/*.dat $DIR_B
+		mv $TRACER_DIR/target/_timeTracr.txt $DIR_B/_timeTracrB.txt
 	fi
 
 
@@ -89,8 +93,8 @@ function executeAnyBenchmark() {
 	if (("$MODE" >= "1"))
 	then
 		mkdir -p $DIR_AB
-		cp $DIR_A/*.dat $DIR_AB
-		cp $DIR_B/*.dat $DIR_AB
+		cp $DIR_A/{*.dat,_time*} $DIR_AB
+		cp $DIR_B/{*.dat,_time*} $DIR_AB
 		#
 		cp $DIR_B/_hashAndCacheStatistic.bin.txt $DIR_AB
 		#
@@ -124,7 +128,7 @@ mkdir -p $RESULT_DIR
 # ##
 # # External evaluation (PDB/Rascal)
 # ###
-executeRascalShellBenchmark "A1" "doImportPrelude" "2048m"
+# executeRascalShellBenchmark "A1" "doImportPrelude" "2048m"
 # executeRascalShellBenchmark "A2" "doImportPrelude" "1024m"
 # executeRascalShellBenchmark "A3" "doImportPrelude" "0512m"
 # executeRascalShellBenchmark "A4" "doImportPrelude" "0256m"
@@ -137,7 +141,7 @@ executeRascalShellBenchmark "B1" "doExpLang" "2048m"
 # # executeRascalShellBenchmark "doM3FromDirectory" "1536m"
 # # executeRascalShellBenchmark "doM3FromDirectory" "1024m"
 
-executeRascalShellBenchmark "C1" "doTypeCheckParserGenerator" "3072m"
+# executeRascalShellBenchmark "C1" "doTypeCheckParserGenerator" "3072m"
 # executeRascalShellBenchmark "C2" "doTypeCheckParserGenerator" "2816m"
 # executeRascalShellBenchmark "C3" "doTypeCheckParserGenerator" "2560m"
 # executeRascalShellBenchmark "C4" "doTypeCheckParserGenerator" "2048m"
@@ -156,9 +160,9 @@ executeRascalShellBenchmark "C1" "doTypeCheckParserGenerator" "3072m"
 # executeRascalShellBenchmark "E3" "MOD17_EVALSYM_15"
 # executeRascalShellBenchmark "F3" "MOD17_EVALTREE_15"
 # #
-executeRascalShellBenchmark "D4" "MOD17_EVALEXP_20"
-executeRascalShellBenchmark "E4" "MOD17_EVALSYM_20"
-executeRascalShellBenchmark "F4" "MOD17_EVALTREE_20"
+# executeRascalShellBenchmark "D4" "MOD17_EVALEXP_20"
+# executeRascalShellBenchmark "E4" "MOD17_EVALSYM_20"
+# executeRascalShellBenchmark "F4" "MOD17_EVALTREE_20"
 # #
 # # executeRascalShellBenchmark "D5" "MOD17_EVALEXP_25" "8192m"
 # # executeRascalShellBenchmark "E5" "MOD17_EVALSYM_25" "8192m"
