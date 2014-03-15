@@ -6,7 +6,7 @@ export COMMON_VM_ARGS="-server
 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:target/gc.log
 " 
 
-export RESULT_DIR=`cd ~/Research/orpheus-results && pwd`
+export RESULT_DIR=`cd ~/Research/orpheus-results_2014-03-06 && pwd`
 export TRACER_DIR=`cd ~/Development/rascal-devel/tracr && pwd`
 
 export MODE=$1
@@ -261,15 +261,17 @@ executeJUnitBenchmark "S01" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharin
 executeJUnitBenchmark "S02" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_02"
 executeJUnitBenchmark "S05" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_05"
 executeJUnitBenchmark "S10" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_10"
-executeJUnitBenchmark "S15A" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15"
-executeJUnitBenchmark "S15B" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "256m"
-executeJUnitBenchmark "S15C" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "192m"
-executeJUnitBenchmark "S15D" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "128m"
-executeJUnitBenchmark "S15E" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "128m" "72m"
-executeJUnitBenchmark "S20A" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20"
-executeJUnitBenchmark "S20B" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20" "2048m"
-executeJUnitBenchmark "S20C" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20" "1024m"
-# ...
+executeJUnitBenchmark "S15" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15"
+# executeJUnitBenchmark "S15A" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15"
+# executeJUnitBenchmark "S15B" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "256m"
+# executeJUnitBenchmark "S15C" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "192m"
+# executeJUnitBenchmark "S15D" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "128m"
+# executeJUnitBenchmark "S15E" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "128m" "72m"
+executeJUnitBenchmark "S20" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20"
+# executeJUnitBenchmark "S20A" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20"
+# executeJUnitBenchmark "S20B" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20" "2048m"
+# executeJUnitBenchmark "S20C" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20" "1024m"
+# # ...
 executeJUnitBenchmark "S20E" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20" "4096m" "128m"
 
 ##
