@@ -6,7 +6,7 @@ export COMMON_VM_ARGS="-server
 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:target/gc.log
 " 
 
-export RESULT_DIR=`cd ~/Research/orpheus-results_2014-03-06 && pwd`
+export RESULT_DIR=`cd ~/Research/orpheus-results_2014-03-16 && pwd`
 export TRACER_DIR=`cd ~/Development/rascal-devel/tracr && pwd`
 
 export MODE=$1
@@ -181,10 +181,10 @@ function executeAnyBenchmark() {
 		cp $DIR_A2/heapSizes-min.dat $DIR_AB/heapSizes-min-without-reordering.dat
 		cp $DIR_A2/_time* $DIR_AB		
 		#
-		cp $DIR_A3/objectCount-nom.dat $DIR_AB/objectCount-nom-with-xor-hashing.dat
-		cp $DIR_A3/objectCount-min.dat $DIR_AB/objectCount-min-with-xor-hashing.dat
-		cp $DIR_A3/heapSizes-nom.dat $DIR_AB/heapSizes-nom-with-xor-hashing.dat
-		cp $DIR_A3/heapSizes-min.dat $DIR_AB/heapSizes-min-with-xor-hashing.dat
+		cp $DIR_A3/objectCount-nom.dat $DIR_AB/objectCount-nom-without-xor-hashing.dat
+		cp $DIR_A3/objectCount-min.dat $DIR_AB/objectCount-min-without-xor-hashing.dat
+		cp $DIR_A3/heapSizes-nom.dat $DIR_AB/heapSizes-nom-without-xor-hashing.dat
+		cp $DIR_A3/heapSizes-min.dat $DIR_AB/heapSizes-min-without-xor-hashing.dat
 		cp $DIR_A3/_time* $DIR_AB		
 		#		
 		mkdir -p $DIR_AB/logA
@@ -228,6 +228,12 @@ mkdir -p $RESULT_DIR
 executeRascalShellBenchmark "A" "doImportPrelude"
 executeRascalShellBenchmark "B" "doExpLang"
 executeRascalShellBenchmark "C" "doTypeCheckParserGenerator"
+
+executeJUnitBenchmark "D" "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarJHotDraw52"
+executeJUnitBenchmark "E" "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarJWAM16FullAndreas"
+executeJUnitBenchmark "F" "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarEclipse202a"
+executeJUnitBenchmark "G" "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarjdk14v2"
+executeJUnitBenchmark "H" "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarJDK140AWT"
 
 executeRascalShellBenchmark "ME05" "MOD17_EVALEXP_05"
 executeRascalShellBenchmark "MS05" "MOD17_EVALSYM_05"
@@ -287,12 +293,6 @@ executeJUnitBenchmark "U20" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharin
 
 # # executeJUnitBenchmark "SME" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithShareableElementsAndMixedEqualitiesAnnotations"
 # # executeJUnitBenchmark "UME" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testTreeWithUniqueElementsAndMixedEqualitiesAnnotations"
-
-executeJUnitBenchmark "D" "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarJHotDraw52"
-executeJUnitBenchmark "E" "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarJWAM16FullAndreas"
-executeJUnitBenchmark "F" "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarEclipse202a"
-executeJUnitBenchmark "G" "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarjdk14v2"
-executeJUnitBenchmark "H" "org.eclipse.imp.pdb.values.benchmarks.RelationResourceBenchmark#closureStarJDK140AWT"
 
 # # executeJUnitBenchmark "RA" "org.eclipse.imp.pdb.values.benchmarks.SingleElementSetBenchmark#testUnionSingleElementIntegerSets_5_000"
 # # executeJUnitBenchmark "RB" "org.eclipse.imp.pdb.values.benchmarks.SingleElementSetBenchmark#testUnionSingleElementIntegerSets_10_000"
