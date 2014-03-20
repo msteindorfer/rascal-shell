@@ -222,9 +222,9 @@ function executeJUnitBenchmark() {
 trap "exit" INT
 mkdir -p $RESULT_DIR
 
-# ##
-# # External evaluation (PDB/Rascal)
-# ###
+##
+# External evaluation (PDB/Rascal)
+###
 executeRascalShellBenchmark "A" "doImportPrelude"
 executeRascalShellBenchmark "B" "doExpLang"
 executeRascalShellBenchmark "C" "doTypeCheckParserGenerator"
@@ -263,25 +263,32 @@ executeRascalShellBenchmark "MT20" "MOD17_EVALTREE_20"
 # Demonstration Sharability
 ###
 executeJUnitBenchmark "S00" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_00"
-executeJUnitBenchmark "S00Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_00" "4096m" "128m"
+executeJUnitBenchmark "S00Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_00" "4096m" "64m"
 #
 executeJUnitBenchmark "S01" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_01"
-executeJUnitBenchmark "S01Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_01" "4096m" "128m"
+executeJUnitBenchmark "S01Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_01" "4096m" "64m"
 #
 executeJUnitBenchmark "S02" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_02"
-executeJUnitBenchmark "S02Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_02" "4096m" "128m"
+executeJUnitBenchmark "S02Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_02" "4096m" "64m"
 #
 executeJUnitBenchmark "S05" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_05"
-executeJUnitBenchmark "S05Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_05" "4096m" "128m"
+executeJUnitBenchmark "S05Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_05" "4096m" "64m"
 #
 executeJUnitBenchmark "S10" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_10"
-executeJUnitBenchmark "S10Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_10" "4096m" "128m"
+executeJUnitBenchmark "S10Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_10" "4096m" "64m"
 #
 executeJUnitBenchmark "S15" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15"
-executeJUnitBenchmark "S15Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "4096m" "128m"
+executeJUnitBenchmark "S15Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "4096m" "72m"
 #
 executeJUnitBenchmark "S20" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20"
-executeJUnitBenchmark "S20Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20" "4096m" "128m"
+executeJUnitBenchmark "S20Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20" "4096m" "80m"
+#
+# executeJUnitBenchmark "S25" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_25" "16384m"
+# executeJUnitBenchmark "S25Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_25" "16384m" "88m"		
+#
+# executeJUnitBenchmark "S30" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_30"
+# executeJUnitBenchmark "S30Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_30" "4096m" "96m"
+
 
 ##
 # Demonstration Redundancy
