@@ -272,10 +272,10 @@ executeJUnitBenchmark "S02" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharin
 executeJUnitBenchmark "S02Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_02" "4096m" "64m"
 #
 executeJUnitBenchmark "S05" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_05"
-executeJUnitBenchmark "S05Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_05" "4096m" "64m"
+executeJUnitBenchmark "S05Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_05" "4096m" "68m"
 #
 executeJUnitBenchmark "S10" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_10"
-executeJUnitBenchmark "S10Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_10" "4096m" "64m"
+executeJUnitBenchmark "S10Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_10" "4096m" "70m"
 #
 executeJUnitBenchmark "S15" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15"
 executeJUnitBenchmark "S15Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "4096m" "72m"
@@ -310,5 +310,5 @@ executeJUnitBenchmark "U20" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharin
 # # #
 # # executeJUnitBenchmark "MAG" "org.eclipse.imp.pdb.values.benchmarks.ModelAggregationBenchmark"
 
-executeJUnitBenchmark "RAND-IO" "org.eclipse.imp.pdb.test.fast.TestRandomValues#testIO"
-executeJUnitBenchmark "RAND-AX" "org.eclipse.imp.pdb.test.fast.TestRandomValues#testAxioms"
+# executeJUnitBenchmark "RAND-IO" "org.eclipse.imp.pdb.test.fast.TestRandomValues#testIO"
+# executeJUnitBenchmark "RAND-AX" "org.eclipse.imp.pdb.test.fast.TestRandomValues#testAxioms"
