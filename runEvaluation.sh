@@ -263,22 +263,25 @@ executeRascalShellBenchmark "MT20" "MOD17_EVALTREE_20"
 # Demonstration Sharability
 ###
 executeJUnitBenchmark "S00" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_00"
+executeJUnitBenchmark "S00Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_00" "4096m" "128m"
+#
 executeJUnitBenchmark "S01" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_01"
+executeJUnitBenchmark "S01Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_01" "4096m" "128m"
+#
 executeJUnitBenchmark "S02" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_02"
+executeJUnitBenchmark "S02Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_02" "4096m" "128m"
+#
 executeJUnitBenchmark "S05" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_05"
+executeJUnitBenchmark "S05Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_05" "4096m" "128m"
+#
 executeJUnitBenchmark "S10" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_10"
+executeJUnitBenchmark "S10Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_10" "4096m" "128m"
+#
 executeJUnitBenchmark "S15" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15"
-# executeJUnitBenchmark "S15A" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15"
-# executeJUnitBenchmark "S15B" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "256m"
-# executeJUnitBenchmark "S15C" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "192m"
-# executeJUnitBenchmark "S15D" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "128m"
-# executeJUnitBenchmark "S15E" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "128m" "72m"
+executeJUnitBenchmark "S15Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_15" "4096m" "128m"
+#
 executeJUnitBenchmark "S20" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20"
-# executeJUnitBenchmark "S20A" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20"
-# executeJUnitBenchmark "S20B" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20" "2048m"
-# executeJUnitBenchmark "S20C" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20" "1024m"
-# # ...
-executeJUnitBenchmark "S20E" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20" "4096m" "128m"
+executeJUnitBenchmark "S20Min" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharingBenchmark#testSingleTreeWithShareableElements_20" "4096m" "128m"
 
 ##
 # Demonstration Redundancy
@@ -298,7 +301,7 @@ executeJUnitBenchmark "U20" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharin
 # # executeJUnitBenchmark "RB" "org.eclipse.imp.pdb.values.benchmarks.SingleElementSetBenchmark#testUnionSingleElementIntegerSets_10_000"
 # # executeJUnitBenchmark "RC" "org.eclipse.imp.pdb.values.benchmarks.SingleElementSetBenchmark#testUnionSingleElementIntegerSets_15_000"
 # # #
-# # executeJUnitBenchmark "S1" "org.eclipse.imp.pdb.values.benchmarks.ModelAggregationBenchmark"
+# # executeJUnitBenchmark "MAG" "org.eclipse.imp.pdb.values.benchmarks.ModelAggregationBenchmark"
 
 executeJUnitBenchmark "RAND-IO" "org.eclipse.imp.pdb.test.fast.TestRandomValues#testIO"
 executeJUnitBenchmark "RAND-AX" "org.eclipse.imp.pdb.test.fast.TestRandomValues#testAxioms"
