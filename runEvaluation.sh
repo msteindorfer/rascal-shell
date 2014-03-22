@@ -6,7 +6,7 @@ export COMMON_VM_ARGS="-server
 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:target/gc.log
 " 
 
-export RESULT_DIR=`cd ~/Research/orpheus-results_2014-03-16 && pwd`
+export RESULT_DIR=`cd ~/Research/orpheus-results_2014-03-22 && pwd`
 export TRACER_DIR=`cd ~/Development/rascal-devel/tracr && pwd`
 
 export MODE=$1
@@ -40,17 +40,17 @@ function executeAnyBenchmark() {
 	# echo "$heapSizeA $heapSizeB $heapSizeAB"
 	# echo "$vm_memory_argsA $vm_memory_argsB"
 
-	local DIR_A=$RESULT_DIR/$benchmark_name"_A"`echo $vm_memory_argsA | tr ' ' '_'`
+	local DIR_A=$RESULT_DIR/$benchmark_name"_A"`echo $vm_memory_argsA | tr ' ' '_'`/$benchmakr_run_nr
 	# echo "$DIR_A"
-	local DIR_A2=$RESULT_DIR/$benchmark_name"_A2"`echo $vm_memory_argsA | tr ' ' '_'`
+	local DIR_A2=$RESULT_DIR/$benchmark_name"_A2"`echo $vm_memory_argsA | tr ' ' '_'`/$benchmakr_run_nr
 	# echo "$DIR_A2"
-	local DIR_A3=$RESULT_DIR/$benchmark_name"_A3"`echo $vm_memory_argsA | tr ' ' '_'`
+	local DIR_A3=$RESULT_DIR/$benchmark_name"_A3"`echo $vm_memory_argsA | tr ' ' '_'`/$benchmakr_run_nr
 	# echo "$DIR_A3"	
-	local DIR_B=$RESULT_DIR/$benchmark_name"_B"`echo $vm_memory_argsB | tr ' ' '_'`
+	local DIR_B=$RESULT_DIR/$benchmark_name"_B"`echo $vm_memory_argsB | tr ' ' '_'`/$benchmakr_run_nr
 	# echo "$DIR_B"
-	local DIR_AA=$RESULT_DIR/$benchmark_name"_AA"`echo $vm_memory_argsA | tr ' ' '_'`
+	local DIR_AA=$RESULT_DIR/$benchmark_name"_AA"`echo $vm_memory_argsA | tr ' ' '_'`/$benchmakr_run_nr
 	# echo "$DIR_AA"
-	local DIR_BB=$RESULT_DIR/$benchmark_name"_BB"`echo $vm_memory_argsB | tr ' ' '_'`
+	local DIR_BB=$RESULT_DIR/$benchmark_name"_BB"`echo $vm_memory_argsB | tr ' ' '_'`/$benchmakr_run_nr
 	# echo "$DIR_BB"
 
 	if [[ "$benchmakr_run_nr" == "--" ]]; then 
@@ -81,27 +81,27 @@ function executeAnyBenchmark() {
 		mv target/_timeBenchmark.txt $DIR_A/_timeBenchmarkA.txt
 		echo "Done A."
 		#
-		echo "Start A2."
-		if test "$1" == "JUnit"; then 
-			command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -DorderUnorderedDisabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
-		else
-			command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -DorderUnorderedDisabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
-		fi;	
-		mkdir -p $DIR_A2
-		mv target/{*.bin*,*.log} $DIR_A2
-		mv target/_timeBenchmark.txt $DIR_A2/_timeBenchmarkA2.txt
-		echo "Done A2."
-		#
-		echo "Start A3."
-		if test "$1" == "JUnit"; then 
-			command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
-		else
-			command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
-		fi;	
-		mkdir -p $DIR_A3
-		mv target/{*.bin*,*.log} $DIR_A3
-		mv target/_timeBenchmark.txt $DIR_A3/_timeBenchmarkA3.txt
-		echo "Done A3."		
+		# echo "Start A2."
+		# if test "$1" == "JUnit"; then 
+		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -DorderUnorderedDisabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+		# else
+		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -DorderUnorderedDisabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+		# fi;	
+		# mkdir -p $DIR_A2
+		# mv target/{*.bin*,*.log} $DIR_A2
+		# mv target/_timeBenchmark.txt $DIR_A2/_timeBenchmarkA2.txt
+		# echo "Done A2."
+		# #
+		# echo "Start A3."
+		# if test "$1" == "JUnit"; then 
+		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+		# else
+		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+		# fi;	
+		# mkdir -p $DIR_A3
+		# mv target/{*.bin*,*.log} $DIR_A3
+		# mv target/_timeBenchmark.txt $DIR_A3/_timeBenchmarkA3.txt
+		# echo "Done A3."		
 				
 		echo "Start B."
 		if [[ $1 == "JUnit" ]]; then 
@@ -149,13 +149,13 @@ function executeAnyBenchmark() {
 		mv $TRACER_DIR/*.dat $DIR_A
 		mv $TRACER_DIR/target/_timeTracr.txt $DIR_A/_timeTracrA.txt
 		#	
-		(cd $TRACER_DIR && sbt "run `echo $DIR_A2`")
-		mv $TRACER_DIR/*.dat $DIR_A2
-		mv $TRACER_DIR/target/_timeTracr.txt $DIR_A2/_timeTracrA2.txt
-		#	
-		(cd $TRACER_DIR && sbt "run `echo $DIR_A3`")
-		mv $TRACER_DIR/*.dat $DIR_A3
-		mv $TRACER_DIR/target/_timeTracr.txt $DIR_A3/_timeTracrA3.txt
+		# (cd $TRACER_DIR && sbt "run `echo $DIR_A2`")
+		# mv $TRACER_DIR/*.dat $DIR_A2
+		# mv $TRACER_DIR/target/_timeTracr.txt $DIR_A2/_timeTracrA2.txt
+		# #	
+		# (cd $TRACER_DIR && sbt "run `echo $DIR_A3`")
+		# mv $TRACER_DIR/*.dat $DIR_A3
+		# mv $TRACER_DIR/target/_timeTracr.txt $DIR_A3/_timeTracrA3.txt
 		#			
 		(cd $TRACER_DIR && sbt "run `echo $DIR_B` sharingEnabled")
 		mv $TRACER_DIR/*.dat $DIR_B
@@ -175,17 +175,17 @@ function executeAnyBenchmark() {
 		cp $DIR_AA/_time* $DIR_AB
 		cp $DIR_BB/_time* $DIR_AB
 		#
-		cp $DIR_A2/objectCount-nom.dat $DIR_AB/objectCount-nom-without-reordering.dat
-		cp $DIR_A2/objectCount-min.dat $DIR_AB/objectCount-min-without-reordering.dat
-		cp $DIR_A2/heapSizes-nom.dat $DIR_AB/heapSizes-nom-without-reordering.dat
-		cp $DIR_A2/heapSizes-min.dat $DIR_AB/heapSizes-min-without-reordering.dat
-		cp $DIR_A2/_time* $DIR_AB		
-		#
-		cp $DIR_A3/objectCount-nom.dat $DIR_AB/objectCount-nom-without-xor-hashing.dat
-		cp $DIR_A3/objectCount-min.dat $DIR_AB/objectCount-min-without-xor-hashing.dat
-		cp $DIR_A3/heapSizes-nom.dat $DIR_AB/heapSizes-nom-without-xor-hashing.dat
-		cp $DIR_A3/heapSizes-min.dat $DIR_AB/heapSizes-min-without-xor-hashing.dat
-		cp $DIR_A3/_time* $DIR_AB		
+		# cp $DIR_A2/objectCount-nom.dat $DIR_AB/objectCount-nom-without-reordering.dat
+		# cp $DIR_A2/objectCount-min.dat $DIR_AB/objectCount-min-without-reordering.dat
+		# cp $DIR_A2/heapSizes-nom.dat $DIR_AB/heapSizes-nom-without-reordering.dat
+		# cp $DIR_A2/heapSizes-min.dat $DIR_AB/heapSizes-min-without-reordering.dat
+		# cp $DIR_A2/_time* $DIR_AB		
+		# #
+		# cp $DIR_A3/objectCount-nom.dat $DIR_AB/objectCount-nom-without-xor-hashing.dat
+		# cp $DIR_A3/objectCount-min.dat $DIR_AB/objectCount-min-without-xor-hashing.dat
+		# cp $DIR_A3/heapSizes-nom.dat $DIR_AB/heapSizes-nom-without-xor-hashing.dat
+		# cp $DIR_A3/heapSizes-min.dat $DIR_AB/heapSizes-min-without-xor-hashing.dat
+		# cp $DIR_A3/_time* $DIR_AB		
 		#		
 		mkdir -p $DIR_AB/logA
 		cp $DIR_A/*.log $DIR_AB/logA
@@ -207,12 +207,18 @@ function executeAnyBenchmark() {
 
 function executeRascalShellBenchmark() {
 	echo "Executing $1 $2 $3 $4"
-	time executeAnyBenchmark "RascalShell" $1 $2 -- $3 $4
+	for runNr in {0..9}
+	do 
+		time executeAnyBenchmark "RascalShell" $1 $2 $runNr $3 $4
+	done
 }
 
 function executeJUnitBenchmark() {
 	echo "Executing $1 $2 $3 $4"
-	time executeAnyBenchmark "JUnit" $1 $2 -- $3 $4
+	for runNr in {0..9}
+	do 
+		time executeAnyBenchmark "JUnit" $1 $2 $runNr $3 $4
+	done
 }
 
 ##
@@ -254,7 +260,7 @@ executeRascalShellBenchmark "MT20" "MOD17_EVALTREE_20"
 # # executeRascalShellBenchmark "ME25" "MOD17_EVALEXP_25" "8192m"
 # # executeRascalShellBenchmark "MS25" "MOD17_EVALSYM_25" "8192m"
 # # executeRascalShellBenchmark "MT25" "MOD17_EVALTREE_25" "8192m"
-# # #
+# #
 # # executeRascalShellBenchmark "ME30" "MOD17_EVALEXP_30" "8192m"
 # # executeRascalShellBenchmark "MS30" "MOD17_EVALSYM_30" "8192m"
 # # executeRascalShellBenchmark "MT30" "MOD17_EVALTREE_30" "8192m"
