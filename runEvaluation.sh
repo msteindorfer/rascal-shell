@@ -6,7 +6,7 @@ export COMMON_VM_ARGS="-server
 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:target/gc.log
 " 
 
-export RESULT_DIR=`cd ~/Research/orpheus-results_2014-03-22 && pwd`
+export RESULT_DIR=`cd ~/Research/orpheus-results_2014-03-16 && pwd`
 export TRACER_DIR=`cd ~/Development/rascal-devel/tracr && pwd`
 
 export MODE=$1
@@ -40,17 +40,17 @@ function executeAnyBenchmark() {
 	# echo "$heapSizeA $heapSizeB $heapSizeAB"
 	# echo "$vm_memory_argsA $vm_memory_argsB"
 
-	local DIR_A=$RESULT_DIR/$benchmark_name"_A"`echo $vm_memory_argsA | tr ' ' '_'`/$benchmakr_run_nr
+	local DIR_A=$RESULT_DIR/$benchmark_name"_A"`echo $vm_memory_argsA | tr ' ' '_'` #/$benchmakr_run_nr
 	# echo "$DIR_A"
-	local DIR_A2=$RESULT_DIR/$benchmark_name"_A2"`echo $vm_memory_argsA | tr ' ' '_'`/$benchmakr_run_nr
+	local DIR_A2=$RESULT_DIR/$benchmark_name"_A2"`echo $vm_memory_argsA | tr ' ' '_'` #/$benchmakr_run_nr
 	# echo "$DIR_A2"
-	local DIR_A3=$RESULT_DIR/$benchmark_name"_A3"`echo $vm_memory_argsA | tr ' ' '_'`/$benchmakr_run_nr
+	local DIR_A3=$RESULT_DIR/$benchmark_name"_A3"`echo $vm_memory_argsA | tr ' ' '_'` #/$benchmakr_run_nr
 	# echo "$DIR_A3"	
-	local DIR_B=$RESULT_DIR/$benchmark_name"_B"`echo $vm_memory_argsB | tr ' ' '_'`/$benchmakr_run_nr
+	local DIR_B=$RESULT_DIR/$benchmark_name"_B"`echo $vm_memory_argsB | tr ' ' '_'` #/$benchmakr_run_nr
 	# echo "$DIR_B"
-	local DIR_AA=$RESULT_DIR/$benchmark_name"_AA"`echo $vm_memory_argsA | tr ' ' '_'`/$benchmakr_run_nr
+	local DIR_AA=$RESULT_DIR/$benchmark_name"_AA"`echo $vm_memory_argsA | tr ' ' '_'` #/$benchmakr_run_nr
 	# echo "$DIR_AA"
-	local DIR_BB=$RESULT_DIR/$benchmark_name"_BB"`echo $vm_memory_argsB | tr ' ' '_'`/$benchmakr_run_nr
+	local DIR_BB=$RESULT_DIR/$benchmark_name"_BB"`echo $vm_memory_argsB | tr ' ' '_'` #/$benchmakr_run_nr
 	# echo "$DIR_BB"
 
 	if [[ "$benchmakr_run_nr" == "--" ]]; then 
@@ -207,18 +207,20 @@ function executeAnyBenchmark() {
 
 function executeRascalShellBenchmark() {
 	echo "Executing $1 $2 $3 $4"
-	for runNr in {0..9}
-	do 
-		time executeAnyBenchmark "RascalShell" $1 $2 $runNr $3 $4
-	done
+	# for runNr in {0..9}
+	# do 
+	# 	time executeAnyBenchmark "RascalShell" $1 $2 $runNr $3 $4
+	# done
+	time executeAnyBenchmark "RascalShell" $1 $2 -- $3 $4
 }
 
 function executeJUnitBenchmark() {
 	echo "Executing $1 $2 $3 $4"
-	for runNr in {0..9}
-	do 
-		time executeAnyBenchmark "JUnit" $1 $2 $runNr $3 $4
-	done
+	# for runNr in {0..9}
+	# do 
+	# 	time executeAnyBenchmark "JUnit" $1 $2 $runNr $3 $4
+	# done
+	time executeAnyBenchmark "JUnit" $1 $2 -- $3 $4
 }
 
 ##
@@ -318,3 +320,4 @@ executeJUnitBenchmark "U20" "org.eclipse.imp.pdb.values.benchmarks.MaximalSharin
 
 # executeJUnitBenchmark "RAND-IO" "org.eclipse.imp.pdb.test.fast.TestRandomValues#testIO"
 # executeJUnitBenchmark "RAND-AX" "org.eclipse.imp.pdb.test.fast.TestRandomValues#testAxioms"
+
