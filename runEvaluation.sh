@@ -6,7 +6,7 @@ export COMMON_VM_ARGS="-server
 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:target/gc.log
 " 
 
-export RESULT_DIR=`cd ~/Research/orpheus-results_2014-03-16 && pwd`
+export RESULT_DIR=`cd ~/Research/orpheus-results && pwd`
 export TRACER_DIR=`cd ~/Development/rascal-devel/tracr && pwd`
 
 export MODE=$1
@@ -70,63 +70,63 @@ function executeAnyBenchmark() {
 	###
 	if (("$MODE" >= "7"))
 	then
-		# echo "Start A."
+		echo "Start A."
+		if test "$1" == "JUnit"; then 
+			command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -DXORHashingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+		else
+			command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -DXORHashingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+		fi;	
+		mkdir -p $DIR_A
+		mv target/{*.bin*,*.log} $DIR_A
+		mv target/_timeBenchmark.txt $DIR_A/_timeBenchmarkA.txt
+		echo "Done A."
+		#
+		# echo "Start A2."
 		# if test "$1" == "JUnit"; then 
-		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -DXORHashingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -DorderUnorderedDisabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
 		# else
-		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -DXORHashingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -DorderUnorderedDisabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
 		# fi;	
-		# mkdir -p $DIR_A
-		# mv target/{*.bin*,*.log} $DIR_A
-		# mv target/_timeBenchmark.txt $DIR_A/_timeBenchmarkA.txt
-		# echo "Done A."
+		# mkdir -p $DIR_A2
+		# mv target/{*.bin*,*.log} $DIR_A2
+		# mv target/_timeBenchmark.txt $DIR_A2/_timeBenchmarkA2.txt
+		# echo "Done A2."
 		# #
-		# # echo "Start A2."
-		# # if test "$1" == "JUnit"; then 
-		# # 	command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -DorderUnorderedDisabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
-		# # else
-		# # 	command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -DorderUnorderedDisabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
-		# # fi;	
-		# # mkdir -p $DIR_A2
-		# # mv target/{*.bin*,*.log} $DIR_A2
-		# # mv target/_timeBenchmark.txt $DIR_A2/_timeBenchmarkA2.txt
-		# # echo "Done A2."
-		# # #
-		# # echo "Start A3."
-		# # if test "$1" == "JUnit"; then 
-		# # 	command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
-		# # else
-		# # 	command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
-		# # fi;	
-		# # mkdir -p $DIR_A3
-		# # mv target/{*.bin*,*.log} $DIR_A3
-		# # mv target/_timeBenchmark.txt $DIR_A3/_timeBenchmarkA3.txt
-		# # echo "Done A3."		
+		# echo "Start A3."
+		# if test "$1" == "JUnit"; then 
+		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+		# else
+		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+		# fi;	
+		# mkdir -p $DIR_A3
+		# mv target/{*.bin*,*.log} $DIR_A3
+		# mv target/_timeBenchmark.txt $DIR_A3/_timeBenchmarkA3.txt
+		# echo "Done A3."		
 				
-		# echo "Start B."
-		# if [[ $1 == "JUnit" ]]; then 
-		# 	command java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -DredundancyProfilingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
-		# else
-		# 	command java $COMMON_VM_ARGS $vm_memory_argsB -DbenchmarkName=$benchmark_name -DsharingEnabled -DredundancyProfilingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
-		# fi;	
-		# mkdir -p $DIR_B 
-		# mv target/{*.bin*,*.log} $DIR_B
-		# mv target/_timeBenchmark.txt $DIR_B/_timeBenchmarkB.txt
-		# echo "Done B."		
+		echo "Start B."
+		if [[ $1 == "JUnit" ]]; then 
+			command java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -DredundancyProfilingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+		else
+			command java $COMMON_VM_ARGS $vm_memory_argsB -DbenchmarkName=$benchmark_name -DsharingEnabled -DredundancyProfilingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+		fi;	
+		mkdir -p $DIR_B 
+		mv target/{*.bin*,*.log} $DIR_B
+		mv target/_timeBenchmark.txt $DIR_B/_timeBenchmarkB.txt
+		echo "Done B."		
+		
+		
+		
+		echo "Start AA."
+		if test "$1" == "JUnit"; then 
+			command java $COMMON_VM_ARGS $vm_memory_argsA -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+		else
+			command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+		fi;	
+		mkdir -p $DIR_AA
+		mv target/{*.bin*,*.log} $DIR_AA
+		mv target/_timeBenchmark.txt $DIR_AA/_timeBenchmarkAA.txt
+		echo "Done AA."		
 		#
-		#
-		#
-		# echo "Start AA."
-		# if test "$1" == "JUnit"; then 
-		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
-		# else
-		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
-		# fi;	
-		# mkdir -p $DIR_AA
-		# mv target/{*.bin*,*.log} $DIR_AA
-		# mv target/_timeBenchmark.txt $DIR_AA/_timeBenchmarkAA.txt
-		# echo "Done AA."		
-		# #
 		echo "Start AA2."
 		if test "$1" == "JUnit"; then 
 			command java $COMMON_VM_ARGS $vm_memory_argsA -classpath .:target/rascal-shell-0.6.2-without-AspectJ-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
@@ -138,17 +138,17 @@ function executeAnyBenchmark() {
 		mv target/_timeBenchmark.txt $DIR_AA/_timeBenchmarkAA2.txt
 		echo "Done AA2."		
 		#		
-		# echo "Start BB."
-		# if [[ $1 == "JUnit" ]]; then 
-		# 	command java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
-		# else
-		# 	command java $COMMON_VM_ARGS $vm_memory_argsB -DbenchmarkName=$benchmark_name -DsharingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
-		# fi;	
-		# mkdir -p $DIR_BB 
-		# mv target/{*.bin*,*.log} $DIR_BB
-		# mv target/_timeBenchmark.txt $DIR_BB/_timeBenchmarkBB.txt
-		# echo "Done BB."	
-		# #		
+		echo "Start BB."
+		if [[ $1 == "JUnit" ]]; then 
+			command java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+		else
+			command java $COMMON_VM_ARGS $vm_memory_argsB -DbenchmarkName=$benchmark_name -DsharingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+		fi;	
+		mkdir -p $DIR_BB 
+		mv target/{*.bin*,*.log} $DIR_BB
+		mv target/_timeBenchmark.txt $DIR_BB/_timeBenchmarkBB.txt
+		echo "Done BB."	
+		#		
 		echo "Start BB2."
 		if [[ $1 == "JUnit" ]]; then 
 			command java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -classpath .:target/rascal-shell-0.6.2-without-AspectJ-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
@@ -162,27 +162,27 @@ function executeAnyBenchmark() {
 	fi
 
 
-	# ##
-	# # Log Postprocessing with Tracr
-	# ###
-	# if (("$MODE" >= "4"))
-	# then
-	# 	(cd $TRACER_DIR && sbt "run `echo $DIR_A`")
-	# 	mv $TRACER_DIR/*.dat $DIR_A
-	# 	mv $TRACER_DIR/target/_timeTracr.txt $DIR_A/_timeTracrA.txt
-	# 	#	
-	# 	# (cd $TRACER_DIR && sbt "run `echo $DIR_A2`")
-	# 	# mv $TRACER_DIR/*.dat $DIR_A2
-	# 	# mv $TRACER_DIR/target/_timeTracr.txt $DIR_A2/_timeTracrA2.txt
-	# 	# #	
-	# 	# (cd $TRACER_DIR && sbt "run `echo $DIR_A3`")
-	# 	# mv $TRACER_DIR/*.dat $DIR_A3
-	# 	# mv $TRACER_DIR/target/_timeTracr.txt $DIR_A3/_timeTracrA3.txt
-	# 	#			
-	# 	(cd $TRACER_DIR && sbt "run `echo $DIR_B` sharingEnabled")
-	# 	mv $TRACER_DIR/*.dat $DIR_B
-	# 	mv $TRACER_DIR/target/_timeTracr.txt $DIR_B/_timeTracrB.txt
-	# fi
+	##
+	# Log Postprocessing with Tracr
+	###
+	if (("$MODE" >= "4"))
+	then
+		(cd $TRACER_DIR && sbt "run `echo $DIR_A`")
+		mv $TRACER_DIR/*.dat $DIR_A
+		mv $TRACER_DIR/target/_timeTracr.txt $DIR_A/_timeTracrA.txt
+		#	
+		# (cd $TRACER_DIR && sbt "run `echo $DIR_A2`")
+		# mv $TRACER_DIR/*.dat $DIR_A2
+		# mv $TRACER_DIR/target/_timeTracr.txt $DIR_A2/_timeTracrA2.txt
+		# #	
+		# (cd $TRACER_DIR && sbt "run `echo $DIR_A3`")
+		# mv $TRACER_DIR/*.dat $DIR_A3
+		# mv $TRACER_DIR/target/_timeTracr.txt $DIR_A3/_timeTracrA3.txt
+		#			
+		(cd $TRACER_DIR && sbt "run `echo $DIR_B` sharingEnabled")
+		mv $TRACER_DIR/*.dat $DIR_B
+		mv $TRACER_DIR/target/_timeTracr.txt $DIR_B/_timeTracrB.txt
+	fi
 
 
 	##
