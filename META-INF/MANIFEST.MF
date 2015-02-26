@@ -1,12 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: rascal-shell
-Bundle-SymbolicName: rascal-shell
+Bundle-Name: rascal-orpheus-shell
+Bundle-SymbolicName: rascal-orpheus-shell
 Bundle-Version: 0.6.2.qualifier
 Bundle-ClassPath: rascal-shell.jar,
  lib/jline-0.9.94.jar
 Export-Package: jline,
  org.rascalmpl.shell
 Require-Bundle: 
- rascal;bundle-version="0.6.2"
+ rascal-orpheus;bundle-version="0.6.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

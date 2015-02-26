@@ -72,9 +72,9 @@ function executeAnyBenchmark() {
 	then
 		echo "Start A."
 		if test "$1" == "JUnit"; then 
-			command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -DXORHashingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+			command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -DXORHashingEnabled -classpath .:target/rascal-orpheus-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
 		else
-			command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -DXORHashingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+			command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -DXORHashingEnabled -jar target/rascal-orpheus-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
 		fi;	
 		mkdir -p $DIR_A
 		mv target/{*.bin*,*.log} $DIR_A
@@ -83,9 +83,9 @@ function executeAnyBenchmark() {
 		#
 		# echo "Start A2."
 		# if test "$1" == "JUnit"; then 
-		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -DorderUnorderedDisabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -DorderUnorderedDisabled -classpath .:target/rascal-orpheus-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
 		# else
-		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -DorderUnorderedDisabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -DorderUnorderedDisabled -jar target/rascal-orpheus-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
 		# fi;	
 		# mkdir -p $DIR_A2
 		# mv target/{*.bin*,*.log} $DIR_A2
@@ -94,9 +94,9 @@ function executeAnyBenchmark() {
 		# #
 		# echo "Start A3."
 		# if test "$1" == "JUnit"; then 
-		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DredundancyProfilingEnabled -classpath .:target/rascal-orpheus-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
 		# else
-		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+		# 	command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -DredundancyProfilingEnabled -jar target/rascal-orpheus-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
 		# fi;	
 		# mkdir -p $DIR_A3
 		# mv target/{*.bin*,*.log} $DIR_A3
@@ -105,9 +105,9 @@ function executeAnyBenchmark() {
 				
 		echo "Start B."
 		if [[ $1 == "JUnit" ]]; then 
-			command java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -DredundancyProfilingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+			command java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -DredundancyProfilingEnabled -classpath .:target/rascal-orpheus-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
 		else
-			command java $COMMON_VM_ARGS $vm_memory_argsB -DbenchmarkName=$benchmark_name -DsharingEnabled -DredundancyProfilingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+			command java $COMMON_VM_ARGS $vm_memory_argsB -DbenchmarkName=$benchmark_name -DsharingEnabled -DredundancyProfilingEnabled -jar target/rascal-orpheus-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
 		fi;	
 		mkdir -p $DIR_B 
 		mv target/{*.bin*,*.log} $DIR_B
@@ -118,9 +118,9 @@ function executeAnyBenchmark() {
 		
 		echo "Start AA."
 		if test "$1" == "JUnit"; then 
-			command java $COMMON_VM_ARGS $vm_memory_argsA -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+			command java $COMMON_VM_ARGS $vm_memory_argsA -classpath .:target/rascal-orpheus-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
 		else
-			command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+			command java $COMMON_VM_ARGS $vm_memory_argsA -DbenchmarkName=$benchmark_name -jar target/rascal-orpheus-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
 		fi;	
 		mkdir -p $DIR_AA
 		mv target/{*.bin*,*.log} $DIR_AA
@@ -140,9 +140,9 @@ function executeAnyBenchmark() {
 		#		
 		echo "Start BB."
 		if [[ $1 == "JUnit" ]]; then 
-			command java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -classpath .:target/rascal-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
+			command java $COMMON_VM_ARGS $vm_memory_argsB -DsharingEnabled -classpath .:target/rascal-orpheus-shell-0.6.2-SNAPSHOT.jar $TEST_RUNNER $benchmark_name 1>target/_stdout.log 2>target/_stderr.log
 		else
-			command java $COMMON_VM_ARGS $vm_memory_argsB -DbenchmarkName=$benchmark_name -DsharingEnabled -jar target/rascal-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
+			command java $COMMON_VM_ARGS $vm_memory_argsB -DbenchmarkName=$benchmark_name -DsharingEnabled -jar target/rascal-orpheus-shell-0.6.2-SNAPSHOT.jar -benchmark 1>target/_stdout.log 2>target/_stderr.log
 		fi;	
 		mkdir -p $DIR_BB 
 		mv target/{*.bin*,*.log} $DIR_BB
